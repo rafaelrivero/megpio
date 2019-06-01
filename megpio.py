@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from tkinter import *
@@ -81,7 +81,8 @@ class Terminal():
             
         pass # Enviar el valor
              # o clockear    
-
+    
+    
 
 class Aplicacion():
     def __init__(self):
@@ -129,6 +130,8 @@ class Aplicacion():
                                                                   
         self.botonQuit = ttk.Button(self.raiz, text = "Quit", 
                                     command=quit)
+        self.botonConfig = ttk.Button(self.raiz, text = "Config", 
+                                    command=self.Configuracion)
                                  
         """
                     Para conseguir que la cuadricula y los widgets se
@@ -153,12 +156,26 @@ class Aplicacion():
                          
         self.botonQuit.grid(column=0, row=51, padx=5, pady=5,
                             sticky=(N, S, E, W))
+        self.botonConfig.grid(column=2, row=51, padx=5, pady=5,
+                            sticky=(N, S, E, W))
         
         # pueda empezar a escribir directamente:
                 
         
         self.raiz.mainloop()
-    
+    def Configuracion(self):
+        
+        ### Leer de configuración
+        PtoSerial = "/dev/ttyACM0"
+        import serial
+        ser = serial.Serial(PtoSerial)  # open serial port
+        print(ser.name)         # check which port was really used
+        #line = ser.readline()   # read a '\n' terminated line
+        #print(line)
+        ser.write(b'out ra4 hi\n')     # write a string
+        ser.close()             # close port
+
+        pass
     
     
 
